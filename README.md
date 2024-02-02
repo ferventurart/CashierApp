@@ -1,4 +1,4 @@
-# CasherApp
+# CashierApp
 ## Una simple aplicacion para poner en practica el mutation testing
 
 <picture>
