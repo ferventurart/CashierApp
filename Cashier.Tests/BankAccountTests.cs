@@ -6,11 +6,11 @@ public class BankAccountTests
     public void BankAccount_WhenDebitAmountGreaterThanBalance_ThrowArgumentOutOfRangeException()
     {   
         //Arrange
-        var amount = 20;
-        var balance = 12;
-        var bankAccountMock = new BankAccount("John Doe", balance);
+        double beginningBalance = 11.99;
+        double debitAmount = 54.55;
+        var bankAccountMock = new BankAccount("John Doe", beginningBalance);
         //Assert
-        var act = () => bankAccountMock.Debit(amount);
+        var act = () => bankAccountMock.Debit(debitAmount);
         //Act
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
@@ -19,11 +19,11 @@ public class BankAccountTests
     public void BankAccount_WhenDebitNegativeAmount_ThrowArgumentOutOfRangeException()
     {   
         //Arrange
-        var amount = -10;
-        var balance = 12;
-        var bankAccountMock = new BankAccount("John Doe", balance);
+        double beginningBalance = 11.99;
+        double debitAmount = -4.55;
+        var bankAccountMock = new BankAccount("John Doe", beginningBalance);
         //Assert
-        var act = () => bankAccountMock.Debit(amount);
+        var act = () => bankAccountMock.Debit(debitAmount);
         //Act
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
@@ -32,11 +32,11 @@ public class BankAccountTests
     public void BankAccount_WhenCreditNegativeAmount_ThrowArgumentOutOfRangeException()
     {   
         //Arrange
-        var amount = -10;
-        var balance = 100;
-        var bankAccountMock = new BankAccount("John Doe", balance);
+        double beginningBalance = 11.99;
+        double creditAmount = -4.55;
+        var bankAccountMock = new BankAccount("John Doe", beginningBalance);
         //Assert
-        var act = () => bankAccountMock.Credit(amount);
+        var act = () => bankAccountMock.Credit(creditAmount);
         //Act
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
@@ -45,25 +45,27 @@ public class BankAccountTests
     public void BankAccount_WhenDebitAmount_TheBalanceDecrease()
     {
         //Arrange
-        var amount = 20;
-        var balance = 100;
-        var bankAccountMock = new BankAccount("John Doe", balance);
+        double beginningBalance = 11.99;
+        double debitAmount = 4.55;
+        double expected = 7.44;
+        var bankAccountMock = new BankAccount("John Doe", beginningBalance);
         //Assert
-        bankAccountMock.Debit(amount);
+        bankAccountMock.Debit(debitAmount);
         //Act
-        bankAccountMock.Balance.Should().Be(80);
+        bankAccountMock.Balance.Should().Be(expected);
     }
     
     [Fact]
-    public void BankAccount_WhenDebitAmount_TheBalanceIncrease()
+    public void BankAccount_WhenCreditAmount_TheBalanceIncrease()
     {
         //Arrange
-        var amount = 20;
-        var balance = 100;
-        var bankAccountMock = new BankAccount("John Doe", balance);
+        double beginningBalance = 11.99;
+        double creditAmount = 4.55;
+        double expected = 16.54;
+        var bankAccountMock = new BankAccount("John Doe", beginningBalance);
         //Assert
-        bankAccountMock.Credit(amount);
+        bankAccountMock.Credit(creditAmount);
         //Act
-        bankAccountMock.Balance.Should().Be(120);
+        bankAccountMock.Balance.Should().Be(expected);
     }
 }
